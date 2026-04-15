@@ -1,12 +1,18 @@
 using System;
 using System.Collections.Generic;
 using TaskFlow.Models;
+using TaskFlow.Utils;
 
 namespace TaskFlow.Services
 {
     public class TaskService
     {
         private List<TaskItem> _tasks = new List<TaskItem>();
+
+        public TaskService()
+        {
+            _tasks = FileManager.LoadTasks();
+        }
 
         public void CrearTarea(string titulo, string descripcion, string responsable)
         {
@@ -21,7 +27,8 @@ namespace TaskFlow.Services
             };
 
             _tasks.Add(nuevaTarea);
-            Console.WriteLine("Tarea creada exitosamente.");
+            FileManager.SaveTasks(_tasks);
+
         }
     }
 }
