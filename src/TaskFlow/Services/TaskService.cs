@@ -28,7 +28,23 @@ namespace TaskFlow.Services
 
             _tasks.Add(nuevaTarea);
             FileManager.SaveTasks(_tasks);
+        }
 
+        public bool CambiarEstadoTarea(int id, TaskStatus nuevoEstado)
+        {
+            var tarea = _tasks.Find(t => t.Id == id);
+
+            if (tarea == null)
+            {
+                return false;
+            }
+
+            tarea.Status = nuevoEstado;
+            tarea.UpdatedAt = DateTime.Now;
+
+            FileManager.SaveTasks(_tasks);
+
+            return true;
         }
     }
 }
