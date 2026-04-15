@@ -1,6 +1,8 @@
-﻿using TaskFlow.Services;
+﻿using TaskFlow.Models;
+using TaskFlow.Services;
 
 bool continuar = true;
+TaskService taskService = new TaskService();
 
 while (continuar)
 {
@@ -18,27 +20,28 @@ while (continuar)
     switch (opcion)
     {
         case "1":
-            // lógica crear tarea
+            Console.WriteLine("Funcionalidad Crear tarea aún no implementada.");
             break;
 
         case "2":
-            // lógica listar tareas
+            Console.WriteLine("Funcionalidad Listar tareas aún no implementada.");
             break;
 
         case "3":
-            ActualizarEstado();
+            ActualizarEstado(taskService);
             break;
 
         case "4":
-            // lógica cambiar responsable
+            Console.WriteLine("Funcionalidad Cambiar responsable aún no implementada.");
             break;
 
         case "5":
-            // lógica eliminar tarea
+            Console.WriteLine("Funcionalidad Eliminar tarea aún no implementada.");
             break;
 
         case "6":
             continuar = false;
+            Console.WriteLine("Saliendo del programa...");
             break;
 
         default:
@@ -49,7 +52,7 @@ while (continuar)
     Console.WriteLine();
 }
 
-static void ActualizarEstado()
+static void ActualizarEstado(TaskService taskService)
 {
     Console.Write("Ingrese el ID de la tarea: ");
     string? inputId = Console.ReadLine();
@@ -67,23 +70,32 @@ static void ActualizarEstado()
     Console.Write("Opción: ");
 
     string? opcionEstado = Console.ReadLine();
+    TaskStatus nuevoEstado;
 
     switch (opcionEstado)
     {
         case "1":
-            Console.WriteLine($"Se solicitó cambiar la tarea {id} a Pendiente.");
+            nuevoEstado = TaskStatus.Pendiente;
             break;
-
         case "2":
-            Console.WriteLine($"Se solicitó cambiar la tarea {id} a En progreso.");
+            nuevoEstado = TaskStatus.EnProgreso;
             break;
-
         case "3":
-            Console.WriteLine($"Se solicitó cambiar la tarea {id} a Completada.");
+            nuevoEstado = TaskStatus.Completada;
             break;
-
         default:
             Console.WriteLine("Estado inválido.");
-            break;
+            return;
+    }
+
+    bool resultado = taskService.CambiarEstadoTarea(id, nuevoEstado);
+
+    if (resultado)
+    {
+        Console.WriteLine("Estado actualizado correctamente.");
+    }
+    else
+    {
+        Console.WriteLine("No se encontró una tarea con ese ID.");
     }
 }
