@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using TaskFlow.Models;
 
 namespace TaskFlow.Services
@@ -13,16 +12,16 @@ namespace TaskFlow.Services
         {
             var nuevaTarea = new TaskItem
             {
-                [cite_start]Id = _tasks.Count + 1, [cite: 66]
-                [cite_start]Titulo = titulo, [cite: 67]
-                [cite_start]Descripcion = descripcion, [cite: 68]
-                [cite_start]Responsable = responsable, [cite: 69]
-                [cite_start]EstadoInicial = TaskStatus.Pendiente, [cite: 70]
-                [cite_start]CreatedAt = DateTime.Now [cite: 75]
+                Id = _tasks.Count + 1,
+                Title = titulo,
+                Description = descripcion,
+                Responsible = responsable,
+                Status = Models.TaskStatus.Pendiente,
+                CreatedAt = DateTime.Now
             };
 
             _tasks.Add(nuevaTarea);
-            Console.WriteLine("¡Tarea creada con éxito!");
+            Console.WriteLine("Tarea creada exitosamente.");
         }
     }
 }
