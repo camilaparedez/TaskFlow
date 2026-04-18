@@ -1,5 +1,5 @@
-﻿using TaskFlow.Models;
-using TaskFlow.Services;
+﻿using TaskFlow.Services;
+using ModeloTaskStatus = TaskFlow.Models.TaskStatus;
 
 bool continuar = true;
 TaskService taskService = new TaskService();
@@ -20,11 +20,11 @@ while (continuar)
     switch (opcion)
     {
         case "1":
-            Console.WriteLine("Funcionalidad Crear tarea aún no implementada.");
+            Console.WriteLine("Funcionalidad aún no implementada");
             break;
 
         case "2":
-            Console.WriteLine("Funcionalidad Listar tareas aún no implementada.");
+            Console.WriteLine("Funcionalidad aún no implementada");
             break;
 
         case "3":
@@ -32,11 +32,11 @@ while (continuar)
             break;
 
         case "4":
-            Console.WriteLine("Funcionalidad Cambiar responsable aún no implementada.");
+            CambiarResponsable(taskService);
             break;
 
         case "5":
-            Console.WriteLine("Funcionalidad Eliminar tarea aún no implementada.");
+            EliminarTarea(taskService);
             break;
 
         case "6":
@@ -70,18 +70,18 @@ static void ActualizarEstado(TaskService taskService)
     Console.Write("Opción: ");
 
     string? opcionEstado = Console.ReadLine();
-    TaskStatus nuevoEstado;
+    ModeloTaskStatus nuevoEstado;
 
     switch (opcionEstado)
     {
         case "1":
-            nuevoEstado = TaskStatus.Pendiente;
+            nuevoEstado = ModeloTaskStatus.Pendiente;
             break;
         case "2":
-            nuevoEstado = TaskStatus.EnProgreso;
+            nuevoEstado = ModeloTaskStatus.EnProgreso;
             break;
         case "3":
-            nuevoEstado = TaskStatus.Completada;
+            nuevoEstado = ModeloTaskStatus.Completada;
             break;
         default:
             Console.WriteLine("Estado inválido.");
@@ -93,6 +93,61 @@ static void ActualizarEstado(TaskService taskService)
     if (resultado)
     {
         Console.WriteLine("Estado actualizado correctamente.");
+    }
+    else
+    {
+        Console.WriteLine("No se encontró una tarea con ese ID.");
+    }
+}
+
+static void CambiarResponsable(TaskService taskService)
+{
+    Console.Write("Ingrese el ID de la tarea: ");
+    string? inputId = Console.ReadLine();
+
+    if (!int.TryParse(inputId, out int id))
+    {
+        Console.WriteLine("El ID debe ser numérico.");
+        return;
+    }
+
+    Console.Write("Ingrese el nuevo responsable: ");
+    string? nuevoResponsable = Console.ReadLine();
+
+    if (string.IsNullOrWhiteSpace(nuevoResponsable))
+    {
+        Console.WriteLine("El responsable no puede estar vacío.");
+        return;
+    }
+
+    bool resultado = taskService.CambiarResponsable(id, nuevoResponsable);
+
+    if (resultado)
+    {
+        Console.WriteLine("Responsable actualizado correctamente.");
+    }
+    else
+    {
+        Console.WriteLine("No se encontró una tarea con ese ID.");
+    }
+}
+
+static void EliminarTarea(TaskService taskService)
+{
+    Console.Write("Ingrese el ID de la tarea a eliminar: ");
+    string? inputId = Console.ReadLine();
+
+    if (!int.TryParse(inputId, out int id))
+    {
+        Console.WriteLine("El ID debe ser numérico.");
+        return;
+    }
+
+    bool resultado = taskService.EliminarTarea(id);
+
+    if (resultado)
+    {
+        Console.WriteLine("Tarea eliminada correctamente.");
     }
     else
     {

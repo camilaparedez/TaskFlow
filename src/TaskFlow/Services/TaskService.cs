@@ -30,7 +30,7 @@ namespace TaskFlow.Services
             FileManager.SaveTasks(_tasks);
         }
 
-        public bool CambiarEstadoTarea(int id, TaskStatus nuevoEstado)
+        public bool CambiarEstadoTarea(int id, TaskFlow.Models.TaskStatus nuevoEstado)
         {
             var tarea = _tasks.Find(t => t.Id == id);
 
@@ -42,6 +42,38 @@ namespace TaskFlow.Services
             tarea.Status = nuevoEstado;
             tarea.UpdatedAt = DateTime.Now;
 
+            FileManager.SaveTasks(_tasks);
+
+            return true;
+        }
+
+        public bool CambiarResponsable(int id, string nuevoResponsable)
+        {
+            var tarea = _tasks.Find(t => t.Id == id);
+
+            if (tarea == null)
+            {
+                return false;
+            }
+
+            tarea.Responsible = nuevoResponsable;
+            tarea.UpdatedAt = DateTime.Now;
+
+            FileManager.SaveTasks(_tasks);
+
+            return true;
+        }
+
+        public bool EliminarTarea(int id)
+        {
+            var tarea = _tasks.Find(t => t.Id == id);
+
+            if (tarea == null)
+            {
+                return false;
+            }
+
+            _tasks.Remove(tarea);
             FileManager.SaveTasks(_tasks);
 
             return true;
