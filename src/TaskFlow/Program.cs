@@ -1,4 +1,8 @@
 ﻿using TaskFlow.Services;
+
+TaskService servicio = new TaskService();
+
+
 using ModeloTaskStatus = TaskFlow.Models.TaskStatus;
 
 bool continuar = true;
@@ -20,11 +24,32 @@ while (continuar)
     switch (opcion)
     {
         case "1":
-            Console.WriteLine("Funcionalidad aún no implementada");
+            Console.WriteLine("\n--- CREAR NUEVA TAREA ---");
+            Console.Write("Título: ");
+            string titulo = Console.ReadLine() ?? "";
+            Console.Write("Descripción: ");
+            string desc = Console.ReadLine() ?? "";
+            Console.Write("Responsable: ");
+            string resp = Console.ReadLine() ?? "";
+
+            taskService.CrearTarea(titulo, desc, resp);
+            Console.WriteLine("¡Tarea creada y guardada en el JSON!");
             break;
 
         case "2":
-            Console.WriteLine("Funcionalidad aún no implementada");
+            var listaTareas = taskService.ObtenerTareas();
+            Console.WriteLine("===LISTADO DE TAREAS===");
+            if (listaTareas.Count == 0)
+            {
+              Console.WriteLine("No hay tareas registradas.");
+            }
+            else
+            {
+              foreach (var tarea in listaTareas)
+              {
+                Console.WriteLine($"[{tarea.Id}] {tarea.Title} | Resp: {tarea.Responsible} | Estado: {tarea.Status}");
+              }
+            }
             break;
 
         case "3":
@@ -154,3 +179,4 @@ static void EliminarTarea(TaskService taskService)
         Console.WriteLine("No se encontró una tarea con ese ID.");
     }
 }
+

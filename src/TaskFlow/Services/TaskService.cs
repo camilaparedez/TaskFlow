@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using TaskFlow.Models;
 using TaskFlow.Utils;
 
@@ -77,6 +78,18 @@ namespace TaskFlow.Services
             FileManager.SaveTasks(_tasks);
 
             return true;
+        }
+        public List<TaskItem> ObtenerTareas()
+        {
+            return _tasks;
+        }
+        public List<TaskItem> ObtenerTareasPorEstado(Models.TaskStatus estadoBuscado)
+        {
+            return _tasks.Where(t => t.Status == estadoBuscado).ToList();
+        }
+        public TaskItem? ObtenerTareaPorId(int id)
+        {
+            return _tasks.FirstOrDefault(t => t.Id == id);       
         }
     }
 }
