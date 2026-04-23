@@ -1,11 +1,11 @@
 [
   {
-    "Id": 1,
-    "Title": "Prueba de JSON",
-    "Description": "Verificando que la carpeta data se cree sola",
-    "Responsible": "Camila",
-    "Status": 0,
-    "CreatedAt": "2026-04-15T16:29:18.0212141-03:00",
-    "UpdatedAt": null
+    "Id": 2,
+    "Title": "Prueba 1",
+    "Description": "Estoy probando el codigo",
+    "Responsible": "Camila ",
+    "Status": 2,
+    "CreatedAt": "2026-04-23T18:27:21.4237088-03:00",
+    "UpdatedAt": "2026-04-23T18:29:35.4579784-03:00"
   }
 ]

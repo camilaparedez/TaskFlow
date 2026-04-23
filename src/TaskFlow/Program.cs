@@ -1,9 +1,7 @@
 ﻿using TaskFlow.Services;
+using ModeloTaskStatus = TaskFlow.Models.TaskStatus;
 
 TaskService servicio = new TaskService();
-
-
-using ModeloTaskStatus = TaskFlow.Models.TaskStatus;
 
 bool continuar = true;
 TaskService taskService = new TaskService();
