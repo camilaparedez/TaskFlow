@@ -15,11 +15,13 @@ namespace TaskFlow.Services
             _tasks = FileManager.LoadTasks();
         }
 
-        public void CrearTarea(string titulo, string descripcion, string responsable)
+       public void CrearTarea(string titulo, string descripcion, string responsable)
         {
+            var nuevoId = _tasks.Any() ? _tasks.Max(t => t.Id) + 1 : 1;
+
             var nuevaTarea = new TaskItem
             {
-                Id = _tasks.Count + 1,
+                Id = nuevoId,
                 Title = titulo,
                 Description = descripcion,
                 Responsible = responsable,
@@ -29,8 +31,9 @@ namespace TaskFlow.Services
 
             _tasks.Add(nuevaTarea);
             FileManager.SaveTasks(_tasks);
-
         }
+        
+
         public List<TaskItem> ObtenerTareas()
         {
             return _tasks;
